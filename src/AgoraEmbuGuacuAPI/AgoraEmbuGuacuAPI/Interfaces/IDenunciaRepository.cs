@@ -3,7 +3,7 @@
 namespace AgoraEmbuGuacuAPI.Interfaces
 {
     public interface IDenunciaRepository
-    {
+    {        
         // Método para listar todas as denúncias
         IEnumerable<Denuncia> ListarDenuncias();
 
@@ -18,5 +18,6 @@ namespace AgoraEmbuGuacuAPI.Interfaces
 
         // Método para adicionar um comentário a uma denúncia
         void AdicionarComentario(int denunciaId, Comentario comentario);
+        void ExcluirDenuncia(int id);
     }
 }

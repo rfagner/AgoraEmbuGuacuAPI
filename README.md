@@ -12,7 +12,6 @@ Plataforma web que oferecerá uma maneira centralizada para a prefeitura, órgã
 - [Instalação](#instalação)
 - [Configuração](#configuração)
 - [Contribuição](#contribuição)
-- [Agradecimentos](#agradecimentos)
 - [Licença](#licença)
 
 ## Início Rápido

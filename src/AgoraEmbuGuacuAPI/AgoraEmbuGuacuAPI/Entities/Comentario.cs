@@ -10,6 +10,7 @@ namespace AgoraEmbuGuacuAPI.Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "O campo texto é obrigatório")]
         public string Texto { get; set; }
+        [Required(ErrorMessage = "O campo autor é obrigatório")]
         public string Autor { get; set; }
         public DateTime DataCriacao { get; set; }
         public int DenunciaId { get; set; }

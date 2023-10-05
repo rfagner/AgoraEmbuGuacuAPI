@@ -1,6 +1,7 @@
 ﻿using AgoraEmbuGuacuAPI.Entities;
 using AgoraEmbuGuacuAPI.Interfaces;
 using AgoraEmbuGuacuAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
             return Ok(new { token = logar });
         }
 
-        // Endpoint para solicitar a recuperação de senha
+        
         [HttpPost("recuperarsenha")]
         public IActionResult RecuperarSenha([FromBody] RecuperarSenhaRequest recuperarSenhaRequest)
         {
@@ -41,8 +42,9 @@ namespace AgoraEmbuGuacuAPI.Controllers
             return BadRequest("E-mail não encontrado.");
         }
 
-        // Endpoint para redefinir a senha com base no token de recuperação
+        
         [HttpPost("redefinirsenha")]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult RedefinirSenha([FromBody] RedefinirSenhaRequest redefinirSenhaRequest)
         {
             var sucesso = _repo.RedefinirSenha(redefinirSenhaRequest.Email, redefinirSenhaRequest.Token, redefinirSenhaRequest.NovaSenha);

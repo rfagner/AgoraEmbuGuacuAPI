@@ -3,6 +3,7 @@ using System;
 using AgoraEmbuGuacuAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgoraEmbuGuacuAPI.Migrations
 {
     [DbContext(typeof(AgoraContext))]
-    partial class AgoraContextModelSnapshot : ModelSnapshot
+    [Migration("20231005194856_AjustesFinais")]
+    partial class AjustesFinais
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

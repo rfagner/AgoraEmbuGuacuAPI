@@ -24,10 +24,9 @@ namespace AgoraEmbuGuacuAPI.Repository
         }
 
         public string Logar(string email, string senha)
-        {
-            //return contextoBanco.Usuarios.Where(x => x.Email == email && x.Senha == senha).FirstOrDefault();
+        {           
 
-            // Irá realizar uma pesquisa pelo email do usuário
+            
             var usuario = _context.Usuarios
                 .Include(t => t.TipoUsuario)
                 .FirstOrDefault(x => x.Email == email);
@@ -37,7 +36,6 @@ namespace AgoraEmbuGuacuAPI.Repository
             {
                 // Verifica se a senha que recebe por parâmetro é a mesma senha que está no banco
                 bool validPassword = BCrypt.Net.BCrypt.Verify(senha, usuario.Password);
-
 
 
                 if (validPassword)
@@ -108,12 +106,12 @@ namespace AgoraEmbuGuacuAPI.Repository
 
             if (usuario != null && usuario.TokenRedefinicaoSenha == token && usuario.DataExpiracaoTokenRedefinicaoSenha >= DateTime.UtcNow)
             {
-                // A validação do token é bem-sucedida e dentro do prazo de validade
+                
 
-                // Redefina a senha do usuário
+                // Redefinir senha do usuário
                 usuario.Password = BCrypt.Net.BCrypt.HashPassword(novaSenha);
 
-                // Limpe o token de redefinição de senha e a data de expiração
+                
                 usuario.TokenRedefinicaoSenha = null;
                 usuario.DataExpiracaoTokenRedefinicaoSenha = null;
 
@@ -129,16 +127,14 @@ namespace AgoraEmbuGuacuAPI.Repository
         // Método auxiliar para gerar um token exclusivo para redefinição de senha
         private string GerarTokenRedefinicaoSenha()
         {
-            // Use a biblioteca Guid para gerar um token exclusivo
+            // Usa a biblioteca Guid para gerar um token exclusivo
             return Guid.NewGuid().ToString();
         }
 
         // Método auxiliar para enviar um e-mail com o token de redefinição de senha
+        // Será um serviço de terceiros
         private void EnviarEmailRedefinicaoSenha(string email, string token)
-        {
-            // Este é um exemplo de implementação genérica de envio de e-mail.
-            // Dependendo da sua infraestrutura, você pode optar por integrar um serviço de e-mail, como SendGrid,
-            // ou usar uma biblioteca de envio de e-mail, como SmtpClient.
+        {            
 
             try
             {
@@ -154,7 +150,7 @@ namespace AgoraEmbuGuacuAPI.Repository
 
                 message.Body = bodyBuilder.ToMessageBody();
 
-                // Configure o cliente SMTP (exemplo com Gmail)
+                // Configuração do cliente SMTP (exemplo com Gmail)
                 using (var client = new SmtpClient())
                 {
                     client.ServerCertificateValidationCallback = (s, c, h, e) => true;
@@ -165,9 +161,7 @@ namespace AgoraEmbuGuacuAPI.Repository
                 }
             }
             catch (Exception ex)
-            {
-                // Lidar com erros de envio de e-mail, como falhas de autenticação ou problemas de conexão
-                // Você pode registrar os erros ou notificar o usuário, dependendo dos requisitos do seu aplicativo.
+            {                
                 Console.WriteLine($"Erro ao enviar e-mail: {ex.Message}");
             }
         }

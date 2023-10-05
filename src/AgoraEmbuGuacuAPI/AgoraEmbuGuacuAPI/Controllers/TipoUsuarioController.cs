@@ -18,7 +18,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Desenvolvedor")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult Cadastrar(TipoUsuario tipoUsuario)
         {
             try
@@ -56,7 +56,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult BuscarTipoUsuarioPorId(int id)
         {
             try
@@ -80,25 +80,25 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Desenvolvedor")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult Alterar(int id, TipoUsuario tipoUsuario)
         {
             try
             {
-                // Verificar se o Id bate com o objeto 
+                
                 if (id != tipoUsuario.Id)
                 {
                     return BadRequest(new { Message = "Dados não conferem" });
                 }
 
-                // Verificar se Id existe no banco
+                
                 var retorno = _tipoUsuarioRepository.BuscarPorId(id);
                 if (retorno == null)
                 {
                     return NotFound(new { Message = "Tipo Usuário não encontrado" });
                 }
 
-                // Altera efetivamente o Tipo Usuário
+                
                 _tipoUsuarioRepository.Alterar(tipoUsuario);
 
                 return NoContent();
@@ -114,12 +114,12 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Desenvolvedor")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult Excluir(int id)
         {
             try
             {
-                // Temos que buscar o objeto
+                
                 var tipoUsuario = _tipoUsuarioRepository.BuscarPorId(id);
                 if (tipoUsuario == null)
                 {

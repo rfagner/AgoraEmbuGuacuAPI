@@ -18,7 +18,7 @@ namespace AgoraEmbuGuacuAPI.Repository
         public IEnumerable<Denuncia> ListarDenuncias()
         {
             return _context.Denuncias
-                .Include(d => d.Comentarios) // Inclui os comentários na consulta
+                .Include(d => d.Comentarios) 
                 .ToList();
         }
 
@@ -38,8 +38,8 @@ namespace AgoraEmbuGuacuAPI.Repository
             {
                 existingDenuncia.Titulo = denuncia.Titulo;
                 existingDenuncia.Descricao = denuncia.Descricao;
-                // Atualize outros campos, se necessário
-                _context.SaveChanges(); // Salve as alterações no contexto
+                
+                _context.SaveChanges(); 
             }
         }
 
@@ -54,11 +54,11 @@ namespace AgoraEmbuGuacuAPI.Repository
                     denuncia.Comentarios = new List<Comentario>();
                 }
 
-                //comentario.Autor = autor; // Define o autor do comentário
+                
 
                 denuncia.Comentarios.Add(comentario);
 
-                _context.SaveChanges(); // Salvar as alterações no contexto
+                _context.SaveChanges(); 
             }
         }
 
@@ -66,7 +66,7 @@ namespace AgoraEmbuGuacuAPI.Repository
         public Denuncia ObterDenunciaPorId(int id)
         {
             return _context.Denuncias
-                .Include(d => d.Comentarios) // Inclui os comentários na consulta
+                .Include(d => d.Comentarios) 
                 .FirstOrDefault(d => d.Id == id);
         }
 

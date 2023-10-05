@@ -7,9 +7,10 @@ namespace AgoraEmbuGuacuAPI.Entities
     public class Usuario
     {
         [Key]
-        [Required]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public int Id { get; set; }
         [Required(ErrorMessage = "O campo username é obrigatório")]
+        [MinLength(3, ErrorMessage ="Minino 3 caracteres")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "O campo nome é obrigatório")]        
@@ -22,8 +23,10 @@ namespace AgoraEmbuGuacuAPI.Entities
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "O campo email é obrigatório")]
+        [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Informe um email válido...")]
         public string Email { get; set; }
         [Required(ErrorMessage = "O campo password é obrigatório")]
+        [MinLength(8, ErrorMessage = "A senha deve conter no mínimo 8 caracteres")]
         public string Password { get; set; }
 
         [ForeignKey("TipoUsuario")]
@@ -32,6 +35,7 @@ namespace AgoraEmbuGuacuAPI.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public TipoUsuario TipoUsuario { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public string TokenRedefinicaoSenha { get; set; }
         public DateTime? DataExpiracaoTokenRedefinicaoSenha { get; set; }
 

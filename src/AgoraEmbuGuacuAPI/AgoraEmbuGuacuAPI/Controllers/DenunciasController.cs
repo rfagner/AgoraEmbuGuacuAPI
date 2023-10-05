@@ -1,5 +1,6 @@
 ﻿using AgoraEmbuGuacuAPI.Entities;
 using AgoraEmbuGuacuAPI.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,41 +19,45 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult GetDenuncias()
         {
-            // Suponha que você tenha uma lista de denúncias em memória (substitua pela lógica do seu banco de dados)
+            
             var denuncias = _denunciaRepository.ListarDenuncias();
 
             return Ok(denuncias);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult PostDenuncia(Denuncia denuncia)
         {
-            // Valide os dados da denúncia, por exemplo, garantindo que os campos obrigatórios sejam preenchidos
+            
 
-            // Salve a denúncia no banco de dados ou em outra fonte de dados
+            
             _denunciaRepository.AdicionarDenuncia(denuncia);
 
-            // Retorne um status HTTP 201 (Created) e a denúncia criada
+            
             return CreatedAtAction(nameof(GetDenuncia), new { id = denuncia.Id }, denuncia);
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult GetDenuncia(int id)
         {
-            // Encontre a denúncia pelo ID (substitua pela lógica do seu banco de dados)
+            
             var denuncia = _denunciaRepository.ObterDenunciaPorId(id);
 
             if (denuncia == null)
             {
-                return NotFound(); // Retorne um status HTTP 404 (Not Found) se a denúncia não existir
+                return NotFound(); 
             }
 
             return Ok(denuncia);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult AtualizarDenuncia(int id, Denuncia denuncia)
         {
             if (id != denuncia.Id)
@@ -62,7 +67,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
 
             try
             {
-                // Verifique se a denúncia com o ID especificado existe
+                
                 var existingDenuncia = _denunciaRepository.ObterDenunciaPorId(id);
 
                 if (existingDenuncia == null)
@@ -70,14 +75,14 @@ namespace AgoraEmbuGuacuAPI.Controllers
                     return NotFound($"Denúncia com o ID {id} não encontrada.");
                 }
 
-                // Atualize os campos da denúncia existente com os valores do corpo da solicitação
+                
                 existingDenuncia.Titulo = denuncia.Titulo;
                 existingDenuncia.Descricao = denuncia.Descricao;
-                // Atualize outros campos, se necessário
+                
 
                 _denunciaRepository.AtualizarDenuncia(existingDenuncia);
 
-                return NoContent(); // Retorna uma resposta HTTP 204 (No Content) após a atualização bem-sucedida
+                return NoContent(); 
             }
             catch (Exception ex)
             {
@@ -105,20 +110,21 @@ namespace AgoraEmbuGuacuAPI.Controllers
                 denuncia.Comentarios = new List<Comentario>();
             }
 
-            // Chame o método no repositório para adicionar o comentário e definir o autor
-            _denunciaRepository.AdicionarComentario(denunciaId, comentario); // Substitua "NomeDoAutor" pelo nome real do autor
+            
+            _denunciaRepository.AdicionarComentario(denunciaId, comentario); 
 
-            return Ok(denuncia); // Retorna a denúncia atualizada
+            return Ok(denuncia); 
         }
 
 
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult ExcluirDenuncia(int id)
         {
             _denunciaRepository.ExcluirDenuncia(id);
-            return NoContent(); // Retorna uma resposta HTTP 204 (No Content) após a exclusão
+            return NoContent(); 
         }
 
 

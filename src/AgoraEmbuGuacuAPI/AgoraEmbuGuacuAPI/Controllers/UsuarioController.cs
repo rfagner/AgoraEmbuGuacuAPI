@@ -3,6 +3,7 @@ using AgoraEmbuGuacuAPI.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AgoraEmbuGuacuAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgoraEmbuGuacuAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult GetAllUsers()
         {
             var users = _userRepository.GetAllUsers();
@@ -25,52 +27,54 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult GetUser(int id)
         {
             var user = _userRepository.GetUserById(id);
             if (user == null)
             {
-                return NotFound(); // Retorne 404 se o usuário não existir
+                return NotFound(); 
             }
             return Ok(user);
         }
 
         [HttpPost]
+        
         public IActionResult CreateUser(Usuario user)
         {
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            // Adicione validações de usuário aqui, como verificação de duplicatas de nome de usuário ou e-mail
+            
             _userRepository.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult UpdateUser(int id, Usuario user)
         {
             if (id != user.Id)
             {
-                return BadRequest(); // Retorne 400 se o ID do usuário não corresponder ao ID na solicitação
+                return BadRequest(); 
             }
 
-            // Adicione validações de usuário aqui, se necessário
+            
 
             _userRepository.UpdateUser(user);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Administrador")]
         public IActionResult DeleteUser(int id)
         {
             var user = _userRepository.GetUserById(id);
             if (user == null)
             {
-                return NotFound(); // Retorne 404 se o usuário não existir
-            }
+                return NotFound(); 
+            }            
 
-            // Adicione validações ou restrições de exclusão, se necessário
-
-            _userRepository.DeleteUser(id); // Chama o método de exclusão no repositório
-            return NoContent(); // Retorne 204 para indicar que o usuário foi excluído com sucesso
+            _userRepository.DeleteUser(id); 
+            return NoContent(); 
         }
     }
 }

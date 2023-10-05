@@ -5,6 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using AgoraEmbuGuacuAPI.Entities;
+using System.Net.Mail;
+using System.Net;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace AgoraEmbuGuacuAPI.Repository
 {
@@ -78,7 +84,7 @@ namespace AgoraEmbuGuacuAPI.Repository
             if (usuario != null)
             {
                 // Gere um token exclusivo para redefinição de senha
-                var tokenRedefinicaoSenha = GerarTokenRedefinicaoSenha(usuario);
+                var tokenRedefinicaoSenha = GerarTokenRedefinicaoSenha();
 
                 // Armazene o token no banco de dados junto com a data de expiração (opcional)
                 usuario.TokenRedefinicaoSenha = tokenRedefinicaoSenha;
@@ -94,6 +100,7 @@ namespace AgoraEmbuGuacuAPI.Repository
 
             return false;
         }
+
 
         public bool RedefinirSenha(string email, string token, string novaSenha)
         {
@@ -117,6 +124,54 @@ namespace AgoraEmbuGuacuAPI.Repository
 
             return false;
         }
+
+
+        // Método auxiliar para gerar um token exclusivo para redefinição de senha
+        private string GerarTokenRedefinicaoSenha()
+        {
+            // Use a biblioteca Guid para gerar um token exclusivo
+            return Guid.NewGuid().ToString();
+        }
+
+        // Método auxiliar para enviar um e-mail com o token de redefinição de senha
+        private void EnviarEmailRedefinicaoSenha(string email, string token)
+        {
+            // Este é um exemplo de implementação genérica de envio de e-mail.
+            // Dependendo da sua infraestrutura, você pode optar por integrar um serviço de e-mail, como SendGrid,
+            // ou usar uma biblioteca de envio de e-mail, como SmtpClient.
+
+            try
+            {
+                // Configure a mensagem de e-mail
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Seu Nome", "seu_email@gmail.com")); // Remetente
+                message.To.Add(new MailboxAddress("Nome do Destinatário", email)); // Destinatário
+                message.Subject = "Redefinição de Senha"; // Assunto
+
+                // Corpo do e-mail
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = $"Use o seguinte token para redefinir sua senha: {token}";
+
+                message.Body = bodyBuilder.ToMessageBody();
+
+                // Configure o cliente SMTP (exemplo com Gmail)
+                using (var client = new SmtpClient())
+                {
+                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("seu_email@gmail.com", "sua_senha"); // Substitua pelo seu e-mail e senha
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Lidar com erros de envio de e-mail, como falhas de autenticação ou problemas de conexão
+                // Você pode registrar os erros ou notificar o usuário, dependendo dos requisitos do seu aplicativo.
+                Console.WriteLine($"Erro ao enviar e-mail: {ex.Message}");
+            }
+        }
+
 
     }
 }

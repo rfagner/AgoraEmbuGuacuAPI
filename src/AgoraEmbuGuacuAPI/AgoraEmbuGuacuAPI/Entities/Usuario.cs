@@ -32,5 +32,8 @@ namespace AgoraEmbuGuacuAPI.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public TipoUsuario TipoUsuario { get; set; }
 
+        public string TokenRedefinicaoSenha { get; set; }
+        public DateTime? DataExpiracaoTokenRedefinicaoSenha { get; set; }
+
     }
 }

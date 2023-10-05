@@ -41,7 +41,14 @@ builder.Services.AddScoped<IDenunciaRepository, DenunciaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITipoUsuarioRepository, TipoUsuarioRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 // Configurando o Swagger
@@ -76,7 +83,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
+builder.Services.AddCors(policyBuilder =>
+                policyBuilder.AddDefaultPolicy(policy =>
+                policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin())
+            );
 
 var app = builder.Build();
 
@@ -89,6 +99,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

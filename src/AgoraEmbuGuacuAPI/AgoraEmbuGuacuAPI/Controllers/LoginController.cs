@@ -18,9 +18,9 @@ namespace AgoraEmbuGuacuAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logar(string email, string senha)
+        public IActionResult Logar(Login login)
         {
-            var logar = _repo.Logar(email, senha);
+            var logar = _repo.Logar(login.email, login.senha);
             if (logar == null)
                 return Unauthorized();
 

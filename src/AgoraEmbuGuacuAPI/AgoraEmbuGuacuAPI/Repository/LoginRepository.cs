@@ -54,15 +54,15 @@ namespace AgoraEmbuGuacuAPI.Repository
                     };
 
                     // Criamos as chaves
-                    var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("clinica-vet-2022-@#$-chave-de-authenticacao"));
+                    var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("agora-embu-guacu-2023-@#$-chave-de-authenticacao"));
 
                     // Criamos as credênciais
                     var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                     // Geramos o token
                     var meuToken = new JwtSecurityToken(
-                        issuer: "clinica.webAPI",
-                        audience: "clinica.webAPI",
+                        issuer: "agora.webAPI",
+                        audience: "agora.webAPI",
                         claims: minhasClaims,
                         expires: DateTime.Now.AddMinutes(30),
                         signingCredentials: credenciais

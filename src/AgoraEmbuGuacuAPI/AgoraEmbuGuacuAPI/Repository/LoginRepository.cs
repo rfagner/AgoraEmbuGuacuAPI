@@ -70,5 +70,53 @@ namespace AgoraEmbuGuacuAPI.Repository
 
             return null;
         }
+
+        public bool RecuperarSenha(string email)
+        {
+            var usuario = _context.Usuarios.FirstOrDefault(x => x.Email == email);
+
+            if (usuario != null)
+            {
+                // Gere um token exclusivo para redefinição de senha
+                var tokenRedefinicaoSenha = GerarTokenRedefinicaoSenha(usuario);
+
+                // Armazene o token no banco de dados junto com a data de expiração (opcional)
+                usuario.TokenRedefinicaoSenha = tokenRedefinicaoSenha;
+                usuario.DataExpiracaoTokenRedefinicaoSenha = DateTime.UtcNow.AddHours(2); // Define um prazo de validade de 2 horas
+
+                _context.SaveChanges();
+
+                // Envie um e-mail com o token de redefinição de senha para o usuário (implementação real requer integração com serviço de e-mail)
+                EnviarEmailRedefinicaoSenha(usuario.Email, tokenRedefinicaoSenha);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RedefinirSenha(string email, string token, string novaSenha)
+        {
+            var usuario = _context.Usuarios.FirstOrDefault(x => x.Email == email);
+
+            if (usuario != null && usuario.TokenRedefinicaoSenha == token && usuario.DataExpiracaoTokenRedefinicaoSenha >= DateTime.UtcNow)
+            {
+                // A validação do token é bem-sucedida e dentro do prazo de validade
+
+                // Redefina a senha do usuário
+                usuario.Password = BCrypt.Net.BCrypt.HashPassword(novaSenha);
+
+                // Limpe o token de redefinição de senha e a data de expiração
+                usuario.TokenRedefinicaoSenha = null;
+                usuario.DataExpiracaoTokenRedefinicaoSenha = null;
+
+                _context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

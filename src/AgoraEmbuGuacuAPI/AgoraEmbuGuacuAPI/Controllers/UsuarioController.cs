@@ -38,6 +38,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
         [HttpPost]
         public IActionResult CreateUser(Usuario user)
         {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             // Adicione validações de usuário aqui, como verificação de duplicatas de nome de usuário ou e-mail
             _userRepository.CreateUser(user);
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);

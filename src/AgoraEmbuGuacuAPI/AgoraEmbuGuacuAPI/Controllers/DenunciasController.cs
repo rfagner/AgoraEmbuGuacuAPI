@@ -18,8 +18,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
             _denunciaRepository = denunciaRepository;
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
+        [HttpGet]        
         public IActionResult GetDenuncias()
         {
             
@@ -31,8 +30,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
         [HttpPost]
         [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
         public IActionResult PostDenuncia(Denuncia denuncia)
-        {
-            
+        {           
 
             
             _denunciaRepository.AdicionarDenuncia(denuncia);
@@ -41,8 +39,7 @@ namespace AgoraEmbuGuacuAPI.Controllers
             return CreatedAtAction(nameof(GetDenuncia), new { id = denuncia.Id }, denuncia);
         }
 
-        [HttpGet("{id}")]
-        [Authorize(Roles = "Desenvolvedor, Administrador, Usuario")]
+        [HttpGet("{id}")]        
         public IActionResult GetDenuncia(int id)
         {
             

@@ -22,6 +22,10 @@ namespace AgoraEmbuGuacuAPI.Entities
         [Required(ErrorMessage = "O campo idade é obrigatório")]
         public int Idade { get; set; }
 
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "O formato do telefone é inválido. Use 11 dígitos.")]
+        [Required(ErrorMessage = "O campo Telefone é obrigatório.")]
+        public string Telefone { get; set; }
+
         [Required(ErrorMessage = "O campo email é obrigatório")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Informe um email válido...")]
         public string Email { get; set; }

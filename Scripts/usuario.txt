@@ -1,0 +1,208 @@
+{
+  "id": 1,
+  "username": "usuario1",
+  "nome": "João",
+  "sobreNome": "Silva",
+  "idade": 25,
+  "email": "joao.silva@email.com",
+  "password": "senha123",
+  "idTipoUsuario": 1
+},
+{
+  "id": 2,
+  "username": "usuario2",
+  "nome": "Maria",
+  "sobreNome": "Santos",
+  "idade": 30,
+  "email": "maria.santos@email.com",
+  "password": "senha456",
+  "idTipoUsuario": 2
+},
+{
+  "id": 3,
+  "username": "usuario3",
+  "nome": "Pedro",
+  "sobreNome": "Ferreira",
+  "idade": 22,
+  "email": "pedro.ferreira@email.com",
+  "password": "senha789",
+  "idTipoUsuario": 3
+},
+{
+  "id": 4,
+  "username": "usuario4",
+  "nome": "Ana",
+  "sobreNome": "Oliveira",
+  "idade": 28,
+  "email": "ana.oliveira@email.com",
+  "password": "senhaabc",
+  "idTipoUsuario": 3
+},
+{
+  "id": 5,
+  "username": "usuario5",
+  "nome": "Luiz",
+  "sobreNome": "Ribeiro",
+  "idade": 35,
+  "email": "luiz.ribeiro@email.com",
+  "password": "senhaxyz",
+  "idTipoUsuario": 1
+},
+{
+  "id": 6,
+  "username": "usuario6",
+  "nome": "Sofia",
+  "sobreNome": "Martins",
+  "idade": 40,
+  "email": "sofia.martins@email.com",
+  "password": "senha123",
+  "idTipoUsuario": 2
+},
+{
+  "id": 7,
+  "username": "usuario7",
+  "nome": "Lucas",
+  "sobreNome": "Pereira",
+  "idade": 29,
+  "email": "lucas.pereira@email.com",
+  "password": "senha456",
+  "idTipoUsuario": 3
+},
+{
+  "id": 8,
+  "username": "usuario8",
+  "nome": "Mariana",
+  "sobreNome": "Rodrigues",
+  "idade": 33,
+  "email": "mariana.rodrigues@email.com",
+  "password": "senha789",
+  "idTipoUsuario": 1
+},
+{
+  "id": 9,
+  "username": "usuario9",
+  "nome": "Paulo",
+  "sobreNome": "Gomes",
+  "idade": 27,
+  "email": "paulo.gomes@email.com",
+  "password": "senhaabc",
+  "idTipoUsuario": 2
+},
+{
+  "id": 10,
+  "username": "usuario10",
+  "nome": "Camila",
+  "sobreNome": "Fernandes",
+  "idade": 38,
+  "email": "camila.fernandes@email.com",
+  "password": "senhaxyz",
+  "idTipoUsuario": 3
+},
+{
+  "id": 11,
+  "username": "usuario11",
+  "nome": "Carlos",
+  "sobreNome": "Almeida",
+  "idade": 26,
+  "email": "carlos.almeida@email.com",
+  "password": "senha123",
+  "idTipoUsuario": 1
+},
+{
+  "id": 12,
+  "username": "usuario12",
+  "nome": "Fernanda",
+  "sobreNome": "Lima",
+  "idade": 31,
+  "email": "fernanda.lima@email.com",
+  "password": "senha456",
+  "idTipoUsuario": 2
+},
+{
+  "id": 13,
+  "username": "usuario13",
+  "nome": "Rodrigo",
+  "sobreNome": "Barbosa",
+  "idade": 24,
+  "email": "rodrigo.barbosa@email.com",
+  "password": "senha789",
+  "idTipoUsuario": 3
+},
+{
+  "id": 14,
+  "username": "usuario14",
+  "nome": "Larissa",
+  "sobreNome": "Costa",
+  "idade": 29,
+  "email": "larissa.costa@email.com",
+  "password": "senhaabc",
+  "idTipoUsuario": 1
+},
+{
+  "id": 15,
+  "username": "usuario15",
+  "nome": "Gustavo",
+  "sobreNome": "Sousa",
+  "idade": 33,
+  "email": "gustavo.sousa@email.com",
+  "password": "senhaxyz",
+  "idTipoUsuario": 2
+},
+{
+  "id": 16,
+  "username": "usuario16",
+  "nome": "Isabela",
+  "sobreNome": "Oliveira",
+  "idade": 22,
+  "email": "isabela.oliveira@email.com",
+  "password": "senha123",
+  "idTipoUsuario": 3
+},
+{
+  "id": 17,
+  "username": "usuario17",
+  "nome": "Eduardo",
+  "sobreNome": "Pereira",
+  "idade": 27,
+  "email": "eduardo.pereira@email.com",
+  "password": "senha456",
+  "idTipoUsuario": 1
+},
+{
+  "id": 18,
+  "username": "usuario18",
+  "nome": "Vanessa",
+  "sobreNome": "Ferreira",
+  "idade": 30,
+  "email": "vanessa.ferreira@email.com",
+  "password": "senha789",
+  "idTipoUsuario": 2
+},
+{
+  "id": 19,
+  "username": "usuario19",
+  "nome": "Marcos",
+  "sobreNome": "Silva",
+  "idade": 25,
+  "email": "marcos.silva@email.com",
+  "password": "senhaabc",
+  "idTipoUsuario": 3
+},
+{
+  "id": 20,
+  "username": "usuario20",
+  "nome": "Ana",
+  "sobreNome": "Lima",
+  "idade": 28,
+  "email": "ana.lima@email.com",
+  "password": "senhaxyz",
+  "idTipoUsuario": 1
+}
+
+
+
+
+
+
+
+

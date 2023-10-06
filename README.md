@@ -175,7 +175,16 @@ cd AgoraEmbuGuacuAPI
 dotnet restore
 ```
 
-4. Execute a aplicação:
+4. Execute os scripts sql no MySQL Workbench:
+
+```
+agoraembuguacu_tipousuario.sql
+agoraembuguacu_usuarios.sql
+
+Verifique os dados de login no arquivo.txt, pois as senhas do banco estão criptografadas 
+```
+
+5. Execute a aplicação:
 
 ```
 dotnet run
